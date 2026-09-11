@@ -1,5 +1,6 @@
 const express = require("express");
 const Task = require("../models/Task");
+const protect = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.post("/", async (req, res) => {
 
         const task = await Task.create({
             title: req.body.title,
+            user: req.user,
         });
 
         res.status(201).json(task);
@@ -27,7 +29,9 @@ router.post("/", async (req, res) => {
 // READ
 router.get("/", async (req, res) => {
     try {
-        const tasks = await Task.find().sort({ createdAt: -1 });
+        const tasks = await Task.find({
+            user: req.user,
+        }).sort({ createdAt: -1 });
 
         res.json(tasks);
     } catch (error) {
@@ -40,10 +44,16 @@ router.get("/", async (req, res) => {
 // UPDATE
 router.put("/:id", async (req, res) => {
     try {
-        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
+        const task = await Task.findByIdAndUpdate(
+            {
+                _id: req.params.id,
+                user: req.user
+            },
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            });
 
         if (!task) {
             return res.status(404).json({
@@ -62,7 +72,10 @@ router.put("/:id", async (req, res) => {
 // DELETE
 router.delete("/:id", async (req, res) => {
     try {
-        const task = await Task.findByIdAndDelete(req.params.id);
+        const task = await Task.findByIdAndDelete({
+            _id: req.params.id,
+            user: req.user
+        });
 
         if (!task) {
             return res.status(404).json({
@@ -79,5 +92,7 @@ router.delete("/:id", async (req, res) => {
         });
     }
 });
+
+router.use(protect);
 
 module.exports = router;
