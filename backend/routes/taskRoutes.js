@@ -1,8 +1,8 @@
+const protect = require("../middleware/authMiddleware");
 const express = require("express");
 const Task = require("../models/Task");
-const protect = require("../middleware/authMiddleware");
-
 const router = express.Router();
+router.use(protect);
 
 //CREATE
 router.post("/", async (req, res) => {
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 // UPDATE
 router.put("/:id", async (req, res) => {
     try {
-        const task = await Task.findByIdAndUpdate(
+        const task = await Task.findOneAndUpdate(
             {
                 _id: req.params.id,
                 user: req.user
@@ -72,7 +72,7 @@ router.put("/:id", async (req, res) => {
 // DELETE
 router.delete("/:id", async (req, res) => {
     try {
-        const task = await Task.findByIdAndDelete({
+        const task = await Task.findOneAndDelete({
             _id: req.params.id,
             user: req.user
         });
@@ -93,6 +93,6 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-router.use(protect);
+
 
 module.exports = router;
