@@ -35,7 +35,7 @@ function Login() {
 
       localStorage.setItem("token", token);
 
-      navigate("/");
+      navigate("/todos");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
     } finally {

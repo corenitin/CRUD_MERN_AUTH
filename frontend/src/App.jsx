@@ -8,11 +8,17 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import TodoPage from "./pages/TodoPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        <Route
+          path="/"
+          element={<LandingPage />}
+        />
 
         <Route
           path="/login"
@@ -25,7 +31,7 @@ function App() {
         />
 
         <Route
-          path="/"
+          path="/todos"
           element={
             <ProtectedRoute>
               <TodoPage />
