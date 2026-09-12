@@ -84,7 +84,7 @@ function TodoPage() {
                     </div>
                 </div>
 
-                <div className="mt-10 max-h-[600px] overflow-auto h-auto scroll-smooth">
+                <div className="mt-10">
                     <TodoList
                         tasks={tasks}
                         setTasks={setTasks}

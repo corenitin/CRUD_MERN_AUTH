@@ -44,7 +44,7 @@ export function TodoForm({setTasks}) {
 
             <button
                 type="submit"
-                className="bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:cursor-not-allowed text-gray-50 text-sm font-medium px-4 transition-colors"
+                className="cursor-pointer bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:cursor-not-allowed text-gray-50 text-sm font-medium px-4 transition-colors"
                 disabled={adding}
             >
                 {adding ? "Adding..." : "Add"}
