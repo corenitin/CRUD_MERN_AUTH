@@ -1,19 +1,17 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/tasks";
+import api from "./api";
 
 export const getTasks = () => {
-  return axios.get(API_URL);
+  return api.get("/tasks");
 };
 
 export const createTask = (task) => {
-  return axios.post(API_URL, task);
+  return api.post("/tasks", task);
 };
 
 export const updateTask = (id, task) => {
-  return axios.put(`${API_URL}/${id}`, task);
+  return api.put(`/tasks/${id}`, task);
 };
 
 export const deleteTask = (id) => {
-  return axios.delete(`${API_URL}/${id}`);
-}; 
+  return api.delete(`/tasks/${id}`);
+};
