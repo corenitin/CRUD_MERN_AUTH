@@ -16,7 +16,7 @@ export function TodoList({ tasks, setTasks, loading }) {
       );
     } catch (error) {
       console.error(error);
-    }finally {
+    } finally {
       setDeletingId(null)
     }
   };
@@ -37,7 +37,7 @@ export function TodoList({ tasks, setTasks, loading }) {
       );
     } catch (error) {
       console.error(error);
-    }finally{
+    } finally {
       setUpdatingId(null)
     }
   };
@@ -50,43 +50,43 @@ export function TodoList({ tasks, setTasks, loading }) {
         (tasks.length === 0 ? (
           <p className="text-gray-500 text-sm">No tasks yet. Add one above.</p>
         ) : (
-        <div className="divide-y divide-gray-800">
-        {tasks.map((task) => (
-          <div key={task._id} className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-3 min-w-0">
-              <span
-                className={
-                  "w-1.5 h-1.5 rounded-full shrink-0 " +
-                  (task.completed ? "bg-green-500" : "bg-yellow-500")
-                }
-              />
-              <h3 className="text-gray-100 text-sm font-medium truncate">
-                {task.title}
-              </h3>
-            </div>
+          <div className="divide-y divide-gray-800">
+            {tasks.map((task) => (
+              <div key={task._id} className="flex items-center justify-between py-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span
+                    className={
+                      "w-1.5 h-1.5 rounded-full shrink-0 " +
+                      (task.completed ? "bg-green-500" : "bg-yellow-500")
+                    }
+                  />
+                  <h3 className="text-gray-100 text-sm font-medium truncate">
+                    {task.title}
+                  </h3>
+                </div>
 
-            <div className="flex items-center gap-4 shrink-0 ml-4">
-              <button
-                className="text-sm font-medium text-gray-400 hover:text-green-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
-                onClick={() => handleToggle(task)}
-                disabled={updatingId === task._id}
-              >
-                {updatingId === task._id
-                  ? "Updating..."
-                  : task.completed ? "Undo" : "Complete"}
-              </button>
+                <div className="flex items-center gap-4 shrink-0 ml-4">
+                  <button
+                    className="text-sm font-medium text-gray-400 hover:text-green-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
+                    onClick={() => handleToggle(task)}
+                    disabled={updatingId === task._id}
+                  >
+                    {updatingId === task._id
+                      ? "Updating..."
+                      : task.completed ? "Undo" : "Complete"}
+                  </button>
 
-              <button
-                className="text-sm font-medium text-gray-400 hover:text-red-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
-                onClick={() => handleDelete(task._id)}
-                disabled={deletingId === task._id}
-              >
-                {deletingId === task._id ? "Deleting..." : "Delete"}
-              </button>
-            </div>
+                  <button
+                    className="text-sm font-medium text-gray-400 hover:text-red-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
+                    onClick={() => handleDelete(task._id)}
+                    disabled={deletingId === task._id}
+                  >
+                    {deletingId === task._id ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-        </div>
         ))}
     </>
   )

@@ -1,7 +1,7 @@
 import api from "./api";
 
-export const getTasks = () => {
-  return api.get("/tasks");
+export const getTasks = (page = 1, limit = 10) => {
+    return api.get(`/tasks?page=${page}&limit=${limit}`);
 };
 
 export const createTask = (task) => {

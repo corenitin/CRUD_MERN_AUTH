@@ -29,11 +29,30 @@ router.post("/", async (req, res) => {
 // READ
 router.get("/", async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const skip = (page - 1) * limit;
+
         const tasks = await Task.find({
             user: req.user,
-        }).sort({ createdAt: -1 });
+        })
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
 
-        res.json(tasks);
+        const totalTasks = await Task.countDocuments({
+            user: req.user,
+        });
+
+        const totalPages = Math.ceil(totalTasks / limit);
+
+        res.json({
+            tasks,
+            currentPage: page,
+            totalPages,
+            totalTasks,
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message,
