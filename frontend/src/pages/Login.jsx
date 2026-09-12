@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -45,9 +45,19 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-[#111116] flex items-center justify-center px-4">
-      <div className="w-full max-w-sm border-l-2 border-violet-500 bg-[#1a1a22] px-8 py-10">
-        <h1 className="text-2xl font-semibold text-gray-50 mb-1">Log in</h1>
-        <p className="text-sm text-gray-400 mb-8">
+      <div className="w-full max-w-[340px]">
+
+        <Link
+          to="/"
+          className="block text-center text-sm text-gray-500 hover:text-gray-300 transition-colors mb-10"
+        >
+          TodoApp
+        </Link>
+
+        <h1 className="text-xl font-semibold text-gray-50 text-center">
+          Log in
+        </h1>
+        <p className="text-sm text-gray-500 text-center mt-1.5 mb-10">
           Enter your details to continue.
         </p>
 
@@ -57,21 +67,21 @@ function Login() {
           </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-7">
           <div>
-            <label className="block text-xs text-gray-400 mb-2">Email</label>
+            <label className="block text-xs text-gray-500 mb-2">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full bg-transparent border-b border-gray-700 text-gray-50 placeholder-gray-600 py-2 outline-none focus:border-violet-500 transition-colors"
+              className="w-full bg-transparent border-b border-gray-800 text-gray-50 placeholder-gray-700 py-1.5 outline-none focus:border-violet-500 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-gray-400 mb-2">
+            <label className="block text-xs text-gray-500 mb-2">
               Password
             </label>
             <input
@@ -80,18 +90,28 @@ function Login() {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full bg-transparent border-b border-gray-700 text-gray-50 placeholder-gray-600 py-2 outline-none focus:border-violet-500 transition-colors"
+              className="w-full bg-transparent border-b border-gray-800 text-gray-50 placeholder-gray-700 py-1.5 outline-none focus:border-violet-500 transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="cursor-pointer w-full bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:cursor-not-allowed text-gray-50 text-sm font-medium py-2.5 mt-2 transition-colors"
+            className="cursor-pointer w-full bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:cursor-not-allowed text-gray-50 text-sm font-medium py-2.5 transition-colors"
           >
             {loading ? "Logging in..." : "Log in"}
           </button>
         </form>
+
+        <p className="mt-10 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="text-gray-300 hover:text-violet-400 transition-colors"
+          >
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
