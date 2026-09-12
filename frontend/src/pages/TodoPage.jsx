@@ -11,6 +11,8 @@ function TodoPage() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
+    const [sort, setSort] = useState("newest");
+
     const limit = 10;
 
     useEffect(() => {
@@ -18,7 +20,7 @@ function TodoPage() {
             try {
                 setLoading(true);
 
-                const response = await getTasks(page, limit);
+                const response = await getTasks(page, limit, sort);
 
                 setTasks(response.data.tasks);
                 setTotalPages(response.data.totalPages);
@@ -30,7 +32,7 @@ function TodoPage() {
         };
 
         fetchTasks();
-    }, [page]);
+    }, [page, sort]);
 
     const navigate = useNavigate();
 
@@ -49,12 +51,31 @@ function TodoPage() {
                         <h1 className="text-3xl font-semibold text-gray-50">
                             Todos
                         </h1>
-                        <button
-                            onClick={handleLogout}
-                            className="text-sm font-medium cursor-pointer text-gray-400 hover:text-violet-400 transition-colors"
-                        >
-                            Log out
-                        </button>
+
+                        <div className="flex items-center gap-5">
+                            <select
+                                value={sort}
+                                onChange={(e) => {
+                                    setSort(e.target.value);
+                                    setPage(1);
+                                }}
+                                className="bg-transparent border-b border-gray-700 text-gray-400 text-sm py-1 pr-1 outline-none focus:border-violet-500 cursor-pointer transition-colors [&>option]:bg-[#1a1a22] [&>option]:text-gray-50"
+                            >
+                                <option value="newest">Newest first</option>
+                                <option value="oldest">Oldest first</option>
+                                <option value="az">A → Z</option>
+                                <option value="za">Z → A</option>
+                                <option value="completed">Completed first</option>
+                                <option value="pending">Pending first</option>
+                            </select>
+
+                            <button
+                                onClick={handleLogout}
+                                className="text-sm font-medium cursor-pointer text-gray-400 hover:text-violet-400 transition-colors"
+                            >
+                                Log out
+                            </button>
+                        </div>
                     </div>
 
 
@@ -95,7 +116,7 @@ function TodoPage() {
                         className="cursor-pointer text-sm font-medium text-gray-400 hover:text-violet-400 disabled:text-gray-700 disabled:cursor-not-allowed transition-colors"
                     >
                         Next
-                    </button>
+                    </button> 
 
                 </div>
 
