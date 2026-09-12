@@ -45,34 +45,39 @@ export function TodoList({ tasks, setTasks, loading }) {
   return (
     <>
       {loading ? (
-        <p className="text-gray-400 m-2">Loading List...</p>
+        <p className="text-gray-400 text-sm">Loading tasks...</p>
       ) :
-        (tasks.map((task, index) => (
-          <div key={task._id} className="flex items-baseline justify-between my-5">
-            <span className="text-gray-100 text-sm font-medium m-2">{index + 1}</span>
-            <h3 className=" text-gray-100 w-xs text-sm font-medium m-2 h-auto">{task.title}</h3>
-            <p className="text-sm">
-              {task.completed
-                ? <span className="text-green-500 font-medium m-2">Completed!</span>
-                : <span className="text-yellow-500 font-medium m-2">Pending!</span>}
-            </p>
-
-            <div className="flex-end flex ">
-              <button
+        (tasks.length === 0 ? (
+          <p className="text-gray-500 text-sm">No tasks yet. Add one above.</p>
+        ) : (
+        <div className="divide-y divide-gray-800">
+        {tasks.map((task) => (
+          <div key={task._id} className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <span
                 className={
-                  task.completed
-                    ? "bg-yellow-800 hover:bg-yellow-700 text-sm font-medium text-gray-200 m-2 py-1 px-3 cursor-pointer border-gray-500 rounded-md"
-                    : "bg-green-800 hover:bg-green-700 text-sm font-medium text-gray-200 m-2 py-1 px-3 cursor-pointer border-gray-500 rounded-md"}
+                  "w-1.5 h-1.5 rounded-full shrink-0 " +
+                  (task.completed ? "bg-green-500" : "bg-yellow-500")
+                }
+              />
+              <h3 className="text-gray-100 text-sm font-medium truncate">
+                {task.title}
+              </h3>
+            </div>
+
+            <div className="flex items-center gap-4 shrink-0 ml-4">
+              <button
+                className="text-sm font-medium text-gray-400 hover:text-green-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
                 onClick={() => handleToggle(task)}
                 disabled={updatingId === task._id}
               >
-                {updatingId === task._id 
-                  ? "Updating..." 
+                {updatingId === task._id
+                  ? "Updating..."
                   : task.completed ? "Undo" : "Complete"}
               </button>
 
               <button
-                className="bg-red-800 hover:bg-red-700 text-sm font-medium text-gray-200 m-2 py-1 px-3 cursor-pointer border-gray-500 rounded-md"
+                className="text-sm font-medium text-gray-400 hover:text-red-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
                 onClick={() => handleDelete(task._id)}
                 disabled={deletingId === task._id}
               >
@@ -80,8 +85,9 @@ export function TodoList({ tasks, setTasks, loading }) {
               </button>
             </div>
           </div>
-        )))}
-
+        ))}
+        </div>
+        ))}
     </>
   )
 }

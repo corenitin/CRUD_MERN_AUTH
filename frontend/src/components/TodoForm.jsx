@@ -33,9 +33,9 @@ export function TodoForm({setTasks}) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex">
+        <form onSubmit={handleSubmit} className="flex gap-3">
             <input
-                className="text-gray-300 font-medium text-sm m-2 py-1 px-3 w-xl border border-gray-500 rounded-md"
+                className="flex-1 bg-transparent border-b border-gray-700 text-gray-50 placeholder-gray-600 text-sm py-2 outline-none focus:border-violet-500 transition-colors"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -44,10 +44,10 @@ export function TodoForm({setTasks}) {
 
             <button
                 type="submit"
-                className="bg-purple-800 hover:bg-purple-700 font-medium text-sm text-gray-200 m-2 py-1 px-3 cursor-pointer border-gray-500 rounded-md"
+                className="bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:cursor-not-allowed text-gray-50 text-sm font-medium px-4 transition-colors"
                 disabled={adding}
             >
-                {adding ? "Adding..." : "Add Todo"}
+                {adding ? "Adding..." : "Add"}
             </button>
         </form>
     )
