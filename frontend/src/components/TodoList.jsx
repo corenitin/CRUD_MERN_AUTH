@@ -67,7 +67,7 @@ export function TodoList({ tasks, setTasks, loading }) {
 
                 <div className="flex items-center gap-4 shrink-0 ml-4">
                   <button
-                    className="text-sm font-medium text-gray-400 hover:text-green-400 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
+                    className="text-sm font-medium text-gray-400 hover:text-green-500 cursor-pointer transition-colors disabled:text-gray-700 disabled:cursor-not-allowed"
                     onClick={() => handleToggle(task)}
                     disabled={updatingId === task._id}
                   >

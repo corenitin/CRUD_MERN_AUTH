@@ -9,3 +9,12 @@ export const registerUser = (userData) => {
 export const loginUser = (userData) => {
   return axios.post(`${API_URL}/login`, userData);
 };
+
+export const googleLogin = (credential) => {
+    return axios.post(
+        `${API_URL}/google`,
+        {
+            credential,
+        }
+    );
+};

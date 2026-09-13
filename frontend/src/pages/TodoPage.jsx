@@ -3,6 +3,7 @@ import { getTasks } from "../services/taskService";
 import { TodoList } from "../components/TodoList";
 import { TodoForm } from "../components/TodoForm";
 import { useNavigate } from "react-router-dom";
+import { Sidebar } from "../components/Sidebar";
 
 function TodoPage() {
     const [tasks, setTasks] = useState([]);
@@ -42,11 +43,13 @@ function TodoPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#111116] p-10 flex justify-center">
+        <div className="min-h-screen bg-[#111116]">
 
-            <div className="w-full max-w-[700px]">
+            <Sidebar />
 
-                <div>
+            <main className="ml-64 p-10">
+                <div className="max-w-[700px] mx-auto">
+
                     <div className="flex justify-between items-center border-l-2 border-violet-500 pl-4 py-2">
                         <h1 className="text-3xl font-semibold text-gray-50">
                             Todos
@@ -78,50 +81,49 @@ function TodoPage() {
                         </div>
                     </div>
 
-
                     <div className="mt-8">
                         <TodoForm setTasks={setTasks} />
                     </div>
+
+                    <div className="mt-10">
+                        <TodoList
+                            tasks={tasks}
+                            setTasks={setTasks}
+                            loading={loading}
+                        />
+                    </div>
+
+                    {tasks.length !== 0 && (
+                        <hr className="mt-6 border-gray-800" />
+                    )}
+
+                    <div className="flex justify-center items-center gap-6 mt-6">
+
+                        <button
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 1}
+                            className="cursor-pointer text-sm font-medium text-gray-400 hover:text-violet-400 disabled:text-gray-700 disabled:cursor-not-allowed transition-colors"
+                        >
+                            Previous
+                        </button>
+
+                        <span className="text-sm text-gray-500">
+                            Page {page} of {totalPages}
+                        </span>
+
+                        <button
+                            onClick={() => setPage(page + 1)}
+                            disabled={page === totalPages}
+                            className="cursor-pointer text-sm font-medium text-gray-400 hover:text-violet-400 disabled:text-gray-700 disabled:cursor-not-allowed transition-colors"
+                        >
+                            Next
+                        </button>
+
+                    </div>
+
                 </div>
+            </main>
 
-                <div className="mt-10">
-                    <TodoList
-                        tasks={tasks}
-                        setTasks={setTasks}
-                        loading={loading}
-                    />
-                </div>
-
-                {tasks.length !== 0 && (
-                    <hr className="mt-6 border-gray-800" />
-                )}
-
-                <div className="flex justify-center items-center gap-6 mt-6">
-
-                    <button
-                        onClick={() => setPage(page - 1)}
-                        disabled={page === 1}
-                        className="cursor-pointer text-sm font-medium text-gray-400 hover:text-violet-400 disabled:text-gray-700 disabled:cursor-not-allowed transition-colors"
-                    >
-                        Previous
-                    </button>
-
-                    <span className="text-sm text-gray-500">
-                        Page {page} of {totalPages}
-                    </span>
-
-                    <button
-                        onClick={() => setPage(page + 1)}
-                        disabled={page === totalPages}
-                        className="cursor-pointer text-sm font-medium text-gray-400 hover:text-violet-400 disabled:text-gray-700 disabled:cursor-not-allowed transition-colors"
-                    >
-                        Next
-                    </button> 
-
-                </div>
-
-
-            </div>
         </div>
     );
 }
