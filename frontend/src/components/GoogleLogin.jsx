@@ -20,15 +20,16 @@ const GoogleLogin = ({ onSuccess }) => {
         window.google.accounts.id.renderButton(
             googleButtonRef.current,
             {
-                theme: "outline",
+                theme: "filled_black",
                 size: "large",
-                width: 350,
+                width: 340,
+                shape: "rectangular",
                 text: "continue_with",
             }
         );
     }, [onSuccess]);
 
-    return <div ref={googleButtonRef}></div>;
+    return <div ref={googleButtonRef} className="mt-6 flex justify-center"></div>;
 };
 
 export default GoogleLogin;

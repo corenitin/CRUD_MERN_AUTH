@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "./api";
 
 const API_URL = "http://localhost:5000/api/auth";
 
@@ -17,4 +18,8 @@ export const googleLogin = (credential) => {
             credential,
         }
     );
+};
+
+export const getCurrentUser = () => {
+  return api.get("/auth/me");
 };

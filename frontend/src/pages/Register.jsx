@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { registerUser } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleLogin from "../components/GoogleLogin";
+import { googleLogin } from "../services/authService";
 
 function Register() {
 
@@ -41,6 +43,24 @@ function Register() {
       );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async (credential) => {
+    try {
+      const response = await googleLogin(credential);
+
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      navigate("/todos");
+    } catch (error) {
+      setError(
+        error.response?.data?.message ||
+        "Google login failed"
+      );
     }
   };
 
@@ -116,6 +136,8 @@ function Register() {
           </button>
         </form>
 
+        <GoogleLogin onSuccess={handleGoogleLogin}/>
+        
         <p className="mt-10 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
           Already have an account?{" "}
           <Link

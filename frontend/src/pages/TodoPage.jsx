@@ -4,6 +4,7 @@ import { TodoList } from "../components/TodoList";
 import { TodoForm } from "../components/TodoForm";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
+import { getCurrentUser } from "../services/authService";
 
 function TodoPage() {
     const [tasks, setTasks] = useState([]);
@@ -13,6 +14,8 @@ function TodoPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [sort, setSort] = useState("newest");
+
+    const [user, setUser] = useState(null);
 
     const limit = 10;
 
@@ -35,6 +38,20 @@ function TodoPage() {
         fetchTasks();
     }, [page, sort]);
 
+//Fetch the user  
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await getCurrentUser();
+                setUser(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -45,7 +62,7 @@ function TodoPage() {
     return (
         <div className="min-h-screen bg-[#111116]">
 
-            <Sidebar />
+            <Sidebar user={user}/>
 
             <main className="ml-64 p-10">
                 <div className="max-w-[700px] mx-auto">

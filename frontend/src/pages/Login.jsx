@@ -122,7 +122,7 @@ function Login() {
             {loading ? "Logging in..." : "Log in"}
           </button>
         </form>
-        <GoogleLogin onSuccess={handleGoogleLogin} />
+        <GoogleLogin onSuccess={handleGoogleLogin}/>
         <p className="mt-10 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
           Don't have an account?{" "}
           <Link

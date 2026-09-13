@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-export const Sidebar = () => {
+export const Sidebar = ({user}) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -40,9 +40,9 @@ export const Sidebar = () => {
             </nav>
             <div className="px-4 py-4 border-t border-gray-800 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-gray-50 text-sm font-medium shrink-0">
-                    U
+                    {user?.name?.charAt(0).toUpperCase()}
                 </div>
-                <span className="text-sm text-gray-300 truncate">User</span>
+                <span className="text-sm text-gray-300 truncate">{user?.name || "User"}</span>
             </div>
 
             {/* Bottom */}
