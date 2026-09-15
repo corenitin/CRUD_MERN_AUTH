@@ -8,7 +8,11 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://crud-mern-auth-gdmf.vercel.app/"],
+  }),
+);
 app.use(express.json());
 
 mongoose
